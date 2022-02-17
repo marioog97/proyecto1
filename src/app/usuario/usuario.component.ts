@@ -25,12 +25,21 @@ export class UsuarioComponent implements OnInit {
     });
   }
 
-  eliminarUsuario(id: string):void{
-    console.log("Eliminar usuario " + id);
+  eliminarUsuario (id_usuario:number) { 
+    console.log("Eliminar usuario:" +id_usuario)
+    this.usService.eliminarUsuario(id_usuario).subscribe ( {
+                                            next: () => this.listarUsuarios(), 
+                                            error: (e) => console.log(JSON.stringify(e))
+                                        });
   }
 
-  nuevoUsuario(){
-    console.log('Nuevo usuario');
+  nuevoUsuario () {
+    console.log("NuevoUsuario.");
+
+    this.usService.nuevoUsuario (this.usuarioAagregar).subscribe ( {
+                                          next: () =>  this.usuarios.push(this.usuarioAagregar),//this.listarUsuarios(), 
+                                          error: (e) => console.log(JSON.stringify(e))
+                                        });
   }
 
 }
